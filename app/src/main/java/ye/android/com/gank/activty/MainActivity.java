@@ -1,13 +1,21 @@
 package ye.android.com.gank.activty;
 
+import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Request;
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     int page=1;
     List<Results> data=new ArrayList<Results>();
     public final int Success=1;
+    public final int REQUEST_WRITE=1;
     Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -64,9 +73,32 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         listView=(ListView)findViewById(R.id.ls);
         adapter=new ImgAdapter(context,data);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent=new Intent(MainActivity.this,ImageActivty.class);
+                intent.putExtra("url",data.get(position).getUrl());
+                startActivity(intent);
+            }
+        });
         String url= Api.getData("福利","10","1");
         getData(url);
+        if(Build.VERSION.SDK_INT>=23) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE);
+            }
+        }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode==REQUEST_WRITE&&grantResults[0]!= PackageManager.PERMISSION_GRANTED){
+            finish();
+        }
+
+    }
+
     public void getData(String url){
 
 
@@ -81,12 +113,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     String jsonObject = jsonArray.getString(i);
                                     Gson gson = new Gson();
-                                    data.add(gson.fromJson(jsonObject, Results.class));
+                                    data.add(0,gson.fromJson(jsonObject, Results.class));
                                 }
                                 mHandler.sendEmptyMessage(Success);
-                                for (Results results:data){
-                                    Log.d("resul",results.toString());
-                                }
+//                                for (Results results:data){
+////                                    Log.d("resul",results.toString());
+//                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
