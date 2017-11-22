@@ -11,5 +11,7 @@
 ### 使用到的框架
 * 图片加载框架 Glide  compile 'com.github.bumptech.glide:glide:3.7.0'
 * 网络请求框架 Volley  compile 'com.android.volley:volley:1.0.0'
-* Json解析 Gson   compile 'com.google.code.gson:gson:2.7'
+* Json解析 Gson   compile 'com.google.code.gson:gson:2.7'
+### 使用到的插件
+* Gsonformat 快速生成需要解析的实体类
 
