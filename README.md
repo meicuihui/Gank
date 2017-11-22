@@ -14,4 +14,6 @@
 * Json解析 Gson   compile 'com.google.code.gson:gson:2.7'
 ### 使用到的插件
 * Gsonformat 快速生成需要解析的实体类
-
+### 效果图
+![screenshot_2017-11-22-15-08-01-879_ye android com](https://user-images.githubusercontent.com/18278015/33114462-ebd049cc-cf97-11e7-9743-e2af25be1e2f.png)
+![screenshot_2017-11-22-15-09-12-945_ye android com](https://user-images.githubusercontent.com/18278015/33114470-f4cd0326-cf97-11e7-8c5b-900b15c9b8af.png)
