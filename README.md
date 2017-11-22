@@ -8,4 +8,8 @@
 * http://gank.io/api/data/休息视频/10/1
 * http://gank.io/api/data/拓展资源/10/1
 * http://gank.io/api/data/all/10/1
+### 使用到的框架
+* 图片加载框架 Glide  compile 'com.github.bumptech.glide:glide:3.7.0'
+* 网络请求框架 Volley  compile 'com.android.volley:volley:1.0.0'
+* Json解析 Gson   compile 'com.google.code.gson:gson:2.7'
 
