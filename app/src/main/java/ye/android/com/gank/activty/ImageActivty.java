@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutionException;
 import ye.android.com.gank.R;
 import ye.android.com.gank.utils.PictureUtil;
 import ye.android.com.gank.utils.ToastUtil;
+import ye.android.com.gank.view.ZoomImageView;
 
 
 /**
@@ -31,7 +32,7 @@ import ye.android.com.gank.utils.ToastUtil;
  */
 
 public class ImageActivty extends Activity implements View.OnClickListener,View.OnLongClickListener{
-    ImageView imageView;
+    ZoomImageView imageView;
     private View inflate;
     Context context;
     private Dialog dialog;
@@ -43,7 +44,7 @@ public class ImageActivty extends Activity implements View.OnClickListener,View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
         context=getApplication();
-        imageView=(ImageView)findViewById(R.id.image);
+        imageView=(ZoomImageView)findViewById(R.id.image);
         imageView.setOnClickListener(this);
         imageView.setOnLongClickListener(this);
         url=getIntent().getStringExtra("url");
