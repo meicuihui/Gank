@@ -20,8 +20,7 @@
 ### License
 `Copyright 2017 sbyxlmm`
 ```
-### 效果图
-![screenshot_2017-11-22-15-08-01-879_ye android com](https://user-images.githubusercontent.com/18278015/33114462-ebd049cc-cf97-11e7-9743-
+
 ```
 
 
