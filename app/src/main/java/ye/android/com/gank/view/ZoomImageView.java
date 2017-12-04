@@ -23,24 +23,20 @@ import android.widget.ImageView;
  */
 public class ZoomImageView extends ImageView implements View.OnLongClickListener,View.OnClickListener, OnGlobalLayoutListener, OnScaleGestureListener, OnTouchListener {
     private boolean mOnce;
-    //初始化时所发的比例
+
     private float mInitScale;
-    //双击后放大的比例
+
     private float mMidScale;
-    //可以放大的最大比例
+
     private float mMaxScale;
 
     private Matrix mMatrix;
 
-    //通过ScaleGestureDetector可以获取到多点触控的缩放比例
     private ScaleGestureDetector mScaleGestureDetector;
 
-    //--------------自由移动-------------
 
-    //记录上一次触控点的数量
     private int mLastPointerCount;
 
-    //上次多点触控的中心点位置
     private float mLastX;
     private float mLastY;
 
@@ -50,12 +46,10 @@ public class ZoomImageView extends ImageView implements View.OnLongClickListener
     private boolean isCheckLeftAndRight;
     private boolean isCheckTopAndBottom;
 
-    //-------------双击放大与缩小----------
     private GestureDetector mGestureDetector;
 
-    //是否正在进行缓慢缩放
     private boolean isAutoScale;
-    
+
 
 
     public ZoomImageView(Context context) {
@@ -69,7 +63,6 @@ public class ZoomImageView extends ImageView implements View.OnLongClickListener
 
     public ZoomImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        Log.i("ZoomImageView构造方法","ZoomImageView构造方法");
         mMatrix = new Matrix();
         super.setScaleType(ScaleType.MATRIX);
         mScaleGestureDetector = new ScaleGestureDetector(context,this);
@@ -80,7 +73,6 @@ public class ZoomImageView extends ImageView implements View.OnLongClickListener
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                //如果此刻正在进行自动的缓慢缩放,则禁止用户双击缩放
                 if (isAutoScale){
                     return true;
                 }
@@ -89,13 +81,9 @@ public class ZoomImageView extends ImageView implements View.OnLongClickListener
                 float y = e.getY();
 
                 if (getScale() < mMidScale) {
-//                    mMatrix.postScale(mMidScale / getScale(),mMidScale / getScale(),x,y);
-//                    setImageMatrix(mMatrix);
                     postDelayed(new AutoScaleRunnable(mMidScale,x,y),16);
                 }
                 else {
-//                    mMatrix.postScale(mInitScale / getScale(),mInitScale / getScale(),x,y);
-//                    setImageMatrix(mMatrix);
                     postDelayed(new AutoScaleRunnable(mInitScale,getWidth()/2,getHeight()/2),16);
 
                 }
