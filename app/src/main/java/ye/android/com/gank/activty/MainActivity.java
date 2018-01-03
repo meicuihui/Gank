@@ -13,10 +13,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -64,8 +68,30 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Title");
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.bac);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_search:
+                        Toast.makeText(MainActivity.this, "Search !", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_notifications:
+                        Toast.makeText(MainActivity.this, "Notificationa !", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_settings:
+                        Toast.makeText(MainActivity.this, "Settings !", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
         context=getApplicationContext();
         mQueue= Volley.newRequestQueue(context);
         sf=(SwipeRefreshLayout) findViewById(R.id.sf);
@@ -89,7 +115,11 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             }
         }
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
