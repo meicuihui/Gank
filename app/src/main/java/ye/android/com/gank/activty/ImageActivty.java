@@ -44,6 +44,7 @@ public class ImageActivty extends Activity implements View.OnClickListener,View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
         context=getApplication();
+
         imageView=(ZoomImageView)findViewById(R.id.image);
         imageView.setOnClickListener(this);
         imageView.setOnLongClickListener(this);
